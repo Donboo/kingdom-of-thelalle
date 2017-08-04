@@ -1,0 +1,88 @@
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.no_select {
+	cursor: default;
+	-webkit-touch-callout: none;
+	  -webkit-user-select: none;
+	   -khtml-user-select: none;
+	     -moz-user-select: none;
+	      -ms-user-select: none;
+	          user-select: none;
+}
+
+canvas {
+	background: url(images/end_sky.png);
+	position: absolute;
+	background-size: 37%;
+}
+
+.loading {
+	background: url("http://minecraft.net/static/js/img/head-bg-d7c3cd0600046b15b4d4eeb94ea8a948.d7c3cd060004.png");
+	height: 100%;
+	opacity: 1;
+	position: absolute;
+	text-align: center;
+	transition: opacity 1s ease;
+	width: 100%;
+	color: #fff;
+	font-family: 'VT323', monospace;
+	font-size: 40px;
+}
+
+.loading.hidden {
+	opacity: 0;
+}
+
+body {
+	background: url("http://minecraft.net/static/js/img/head-bg-d7c3cd0600046b15b4d4eeb94ea8a948.d7c3cd060004.png");
+	overflow: hidden;
+}
+
+.box {
+	display: block;
+	margin: 0 auto;
+	background-image: url("images/box.png");
+	background-repeat: no-repeat;
+	background-size: 100%;
+	height: 253px;
+	width: 377px;
+	text-align:center;
+}
+
+.box-inner-padding {
+	padding: 15px;
+}
+
+.input {
+	margin: 0 auto;
+    display: block;
+	margin-top: 0px;
+	padding: 3px;
+}
+
+.button {
+	background: red;
+	padding: 3px;
+}
+
+a {
+	text-decoration: none;
+	color: #fff;
+}
+
+.innerUpgrades {
+	height: 213px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	padding: 20px;
+}
+
+.innerUpgrades .items ul li {
+	display: block;
+	text-align: left;
+	width: 100%;
+}

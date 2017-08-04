@@ -1,0 +1,139 @@
+<html>
+	<head>
+		<title>Kingdom of Thelalle</title>
+		<link rel="stylesheet" href="http://localhost/style.css">
+		<script src="http://localhost/jquery-3.2.1.min.js"></script>
+		<script src="http://localhost/socket.io.js"></script>
+		
+		<link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+		
+		<!-- DISABLE CACHE -->
+		<meta http-equiv="cache-control" content="max-age=0" />
+		<meta http-equiv="cache-control" content="no-cache" />
+		<meta http-equiv="expires" content="0" />
+		<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+		<meta http-equiv="pragma" content="no-cache" />
+	</head>
+	<body>
+		<div class="content">
+		<a id="characters" href="javascript:void(0)" style="display: none;">Characters</a>
+		<a id="upgrades" href="javascript:void(0)" style="display: none;">Upgrades</a>
+		<div class="box" id="upgradesMenu" href="javascript:void(0)" style="display: none;">
+			<div class="innerUpgrades">
+				<div class="items">
+					<ul>
+						<li>
+							<div>
+								<img src="http://localhost/images/bata1.png" style="vertical-align: middle;" />
+								<span style="vertical-align: middle;"> 
+									- Bata (75 XP) - <a id="buyBata" href="javascript:void(0)">Cumpara</a>
+								</span>
+							</div>
+						</li>
+						<br />
+						<li>
+							<div>
+								<img src="http://localhost/images/tarnacop1.png" style="vertical-align: middle;" />
+								<span style="vertical-align: middle;"> 
+									- Tarnacop  (150 XP) - <a id="buyTarnacop" href="javascript:void(0)">Cumpara</a>
+								</span>
+							</div>
+						</li>
+						<br />
+						<li>
+							<div>
+								<img src="http://localhost/images/sabie1.png" style="vertical-align: middle;" />
+								<span style="vertical-align: middle;"> 
+									- Sabie (350 XP) - <a id="buySabie" href="javascript:void(0)">Cumpara</a>
+								</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<canvas id="mCanvas" height="600" width="800"></canvas>
+		<div id="loading" class="loading no_select"><h1 style="display:block;margin: 0 auto;margin-top:200px;">Kingdom of Thelalle...</h1><br><p>Please wait while the game is loading the assets..</p><br><img src="http://localhost/images/loader.gif"/></div>
+		</div>
+		<!-- IMAGES -->
+		<img id="block1" style="display: none;" src="http://localhost/images/block1.png"></img>
+		<img id="block2" style="dispaly: none;" src="http://localhost/images/block2.png"></img>
+		<img id="block3" style="display: none;" src="http://localhost/images/block3.png"></img>
+		<img id="block4" style="display: none;" src="http://localhost/images/block4.png"></img>
+		<img id="block5" style="display: none;" src="http://localhost/images/block5.png"></img>
+ 		<img id="characterImg0" style="display: none;" src="http://localhost/images/0.png"></img>
+		<img id="characterImg2" style="display: none;" src="http://localhost/images/2.png"></img>
+		<img id="characterImg4" style="display: none;" src="http://localhost/images/4.png"></img>
+		<img id="characterImgc16" style="display: none;" src="http://localhost/images/c16.png"></img>
+		<img id="characterImgc13" style="display: none;" src="http://localhost/images/c13.png"></img>
+		<img id="characterImgc15" style="display: none;" src="http://localhost/images/c15.png"></img>
+		<img id="characterImgc27" style="display: none;" src="http://localhost/images/c27.png"></img>
+		<img id="characterImgc28" style="display: none;" src="http://localhost/images/c28.png"></img>
+		<img id="characterImgc25" style="display: none;" src="http://localhost/images/c25.png"></img>
+		<img id="characterImgc311" style="display: none;" src="http://localhost/images/c3.png"></img>
+		<img id="characterImgc111" style="display: none;" src="http://localhost/images/c1.png"></img>
+		<img id="characterImgc411" style="display: none;" src="http://localhost/images/c4.png"></img>
+		
+		<img id="menu" style="display: none;" src="http://localhost/images/box.png"></img>
+		<img id="sky_small" style="display: none;" src="http://localhost/images/end_sky.png"></img>
+	</body>
+	<script src="http://localhost/static/game.js"></script>
+	<script>
+	/*
+		var cookieSet = document.cookie.split("; ");
+		if(cookieSet[1].length < 1) window.location.replace = "http://localhost/login.php";
+		*/
+	
+		var screenHeight = window.innerHeight;
+		var screenWidth = window.innerWidth;
+		
+		var mCanvas = document.getElementById("mCanvas");
+		
+		mCanvas.height = screenHeight;
+		mCanvas.width = screenWidth;
+		
+		var activated = 0;
+		
+		$(document).keyup(function(e) { 
+			if(e.keyCode == 27) {
+				if(!activated) {
+					$("#upgrades").css("display", "block");
+					$("#upgrades").css("z-index", "10");
+					$("#upgrades").css("margin-left", window.innerWidth/2-60);
+					$("#upgrades").css("margin-top", window.innerHeight/2-90);
+					$("#upgrades").css("position", "absolute");
+					$("#upgrades").css("font-family", "Arial");
+					$("#upgrades").css("color", "#000");
+					$("#upgrades").css("font-weight", "bold");
+					
+					$("#characters").css("display", "block");
+					$("#characters").css("z-index", "10");
+					$("#characters").css("margin-left", window.innerWidth/2-60);
+					$("#characters").css("margin-top", window.innerHeight/2-130);
+					$("#characters").css("position", "absolute");
+					$("#characters").css("font-family", "Arial");
+					$("#characters").css("color", "#000");
+					$("#characters").css("font-weight", "bold");
+					
+					$("#upgradesMenu").css("display", "none");
+					$("#upgradesMenu").css("z-index", "11");
+					$("#upgradesMenu").css("margin-left", (window.innerWidth-377)/2);
+					$("#upgradesMenu").css("margin-top", (window.innerHeight-253)/2);
+					$("#upgradesMenu").css("position", "absolute");
+					$("#upgradesMenu").css("font-family", "Arial");
+					$("#upgradesMenu").css("color", "#000");
+					$("#upgradesMenu").css("font-weight", "bold");
+					
+					activated = true;
+				}
+				else {
+					$("#upgrades").css("display", "none");
+					$("#characters").css("display", "none");
+					
+					activated = false;
+				}
+			}
+		});
+				
+	</script>
+</html>
